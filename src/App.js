@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ListItem from './ListItem';
 
 class App extends Component {
   constructor() {
@@ -10,9 +11,9 @@ class App extends Component {
 
     this.state = {
       shoppingList: [
-        {id: 0, name: 'Mleko'},
-        {id: 1, name: 'Masło'},
-        {id: 2, name: 'Pieczywo'}
+        {id: 0, name: 'Mleko', done: false},
+        {id: 1, name: 'Masło', done: false},
+        {id: 2, name: 'Pieczywo', done: false}
       ],
       newElementName: '',
       newHeader: ''
@@ -43,6 +44,10 @@ class App extends Component {
     this.setState({shoppingList: newShopppingList})
   }
 
+  changeElementStatus (index) {
+    console.log('change', index)
+  }
+
   render() {
     const { shoppingList, newElementName, newHeader } = this.state;
     // const shoppingList = this.state.shoppingList;
@@ -52,8 +57,12 @@ class App extends Component {
         <h1>{newHeader}</h1>
         <ul>
           {
-            shoppingList.map((shoppingElement) => {
-            return <li key={shoppingElement.id}>{shoppingElement.name}</li>
+            shoppingList.map((shoppingElement, i) => {
+            return <ListItem 
+              key={shoppingElement.id} 
+              value={shoppingElement.name} 
+              index={i}
+              changeStatus={this.changeElementStatus} ></ListItem>
             })
             // shoppingList.map(shoppingElement => <li key={shoppingElement.id}>{shoppingElement.name}</li>)
           }
